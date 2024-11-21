@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In - Marble</title>
+    <link rel="icon" type="image/png" href="https://i.ibb.co/T8PFcP3/M.png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: "Poppins", sans-serif;
+            background: #010126;
+            margin: 0;
+            padding: 0;
+            color: white;
+        }
+
+        .banner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 25px; /* Reduced height */
+            background: linear-gradient(#463960, #2c243e);
+            box-shadow: 0 4px 8px rgba(32, 18, 43, 0.2);
+        }
+
+        .banner img {
+            height: 25px; /* Adjust logo size as needed */
+        }
+
+        .alert {
+            color: rgb(223, 100, 153); /* Change the color as needed */
+            margin-bottom: 15px; /* Space below the error messages */
+        }
+
+        .marble_Button {
+            background-color: #565063; /* Darker button color */
+            color: white;
+            text-decoration: none; /* Remove underline */
+            padding: 7px 15px;
+            border-radius: 15px; /* Rounded corners */
+            transition: background-color 0.3s, box-shadow 0.3s;
+            margin-left: 0px; /* Space between buttons */
+        }
+
+        .marble_Button:hover {
+            background-color: #3e3843; /* Lighter button color on hover */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Enhanced hover effect */
+        }
+
+        .marble_Button:focus {
+            outline: 0.5px solid #00000050; /* Add a focus outline */
+        }
+
+        .container {
+            padding: 15px; /* Add padding for better layout */
+            text-align: center; /* Center text and form elements */
+            animation: slideIn 0.5s forwards; /* Animate sliding in */
+        }
+
+        h1 {
+            margin: 20px 0 -10px; /* Reduced bottom margin */
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center form elements */
+            margin-top: 20px; /* Space above the form */
+        }
+
+        label {
+            margin: 10px 0 5px; /* Space between label and input */
+        }
+
+        input[type="text"], input[type="password"] {
+            padding: 10px;
+            width: 200px; /* Set a consistent width */
+            border-radius: 8px; /* Rounded corners */
+            border: 1px solid #ccc; /* Light border */
+            background-color: #2c2c38; /* Input background color */
+            color: white; /* Input text color */
+        }
+
+        button {
+            background-color: #565063; /* Darker button color */
+            color: white;
+            padding: 10px 20px;
+            border-radius: 15px; /* Rounded corners */
+            border: none; /* Remove border */
+            cursor: pointer; /* Change cursor on hover */
+            transition: background-color 0.3s, box-shadow 0.3s;
+            margin-top: 10px; /* Space above the button */
+        }
+
+        button:hover {
+            background-color: #3e3843; /* Lighter button color on hover */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Enhanced hover effect */
+        }
+        @keyframes slideIn {
+            0% {
+                transform: translateX(-100%); /* Off-screen start */
+                opacity: 0; /* Start invisible */
+            }
+            100% {
+                transform: translateX(0); /* Move into place */
+                opacity: 1;
+            }
+        }
+
+        .link_Button {
+            color: #56b6e2;
+            text-decoration: none; 
+        }
+
+        .link_Button:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="banner">
+        <img src="https://i.ibb.co/pd6zKw2/MARBLELOGO.png" alt="Marble Logo" onclick="window.location.href='/'" style="cursor: pointer;">
+        
+        <div>
+            <a href="{% url 'create_account' %}" class="marble_Button">Create Account</a>
+            <a href="{% url 'custom_login' %}" class="marble_Button">Sign In</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <h1>Sign In</h1>
+        
+        {% for message in messages %}
+            <div class="alert">{{ message }}</div>
+        {% endfor %}
+        
+        <form method="POST">
+            {% csrf_token %}
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+            
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            
+            <button type="submit" class="marble_Button">Sign In</button>
+        </form>
+        
+        <p>Don't have an account? <a href="{% url 'create_account' %}" class="link_Button">Create One</a></p>
+    </div>
+    
+</body>
+</html>

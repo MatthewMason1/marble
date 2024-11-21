@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marble</title>
+    <link rel="icon" type="image/png" href="https://i.ibb.co/T8PFcP3/M.png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: "Poppins", sans-serif;
+            background: #010126;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        .alert {
+            color: rgb(223, 100, 153);
+            margin-bottom: 15px;
+        }
+        
+        .banner {
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            padding: 16px 25px; 
+            background: linear-gradient(#463960, #2c243e);
+            box-shadow: 0 4px 8px rgba(32, 18, 43, 0.2);
+        }
+        .profile-picture-container {
+            position: relative; 
+            display: inline-block; 
+        }
+        
+        .profile-picture {
+    scale: 1.3;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    margin-right: 10px;
+    object-fit: cover;
+    outline: 1.5px solid rgba(0, 0, 0, 0.254);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    
+
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15), 
+                0px 2px 4px rgba(0, 0, 0, 0.1);
+
+
+    &:hover {
+        transform: scale(1.1);
+        box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2),
+                    0px 3px 6px rgba(0, 0, 0, 0.15);
+    }
+
+    &:hover {
+        transform: scale(1.1) rotate(2deg);
+    }
+}
+
+
+.hover-buttons {
+    position: absolute; 
+    top: 0; 
+    left: 30px; 
+    opacity: 0; 
+    visibility: hidden;
+    transition: opacity 0.3s ease, transform 0.3s ease; 
+}
+
+.profile-picture-container:hover .hover-buttons {
+    opacity: 1; 
+    visibility: visible;
+}
+
+        .banner img { 
+            height: 25px; 
+            cursor: pointer; 
+        }
+        .recent-users { 
+            margin: 20px; 
+            color: white; 
+        }
+        .recent-users h3 { 
+            margin-bottom: 10px; 
+        }
+        .recent-users ul {
+            list-style: none; 
+            padding: 0; 
+            display: grid; 
+            grid-template-columns: repeat(4, 2fr); 
+            gap: 20px;
+        }
+        @keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+
+.recent-users li {
+    background: linear-gradient(#7f75896c, #54495c76);
+    border-radius: 15px;
+    padding: 15px;
+    position: relative;
+    transition: transform 0.3s ease;
+    opacity: 0;
+    animation: fadeIn 0.9s forwards;
+}
+
+        .recent-users li:hover {
+            transform: scale(1.04); 
+        }
+        .recent-users li img {
+            width: 50px; 
+            height: 50px; 
+            border-radius: 50%; 
+            object-fit: cover; 
+            margin-right: 15px;
+        }
+        .user-info { 
+            display: flex; 
+            flex-direction: column; 
+            align-items: flex-start; 
+        }
+        .user-info a { 
+            color: white; 
+            font-weight: bold; 
+            text-decoration: none; 
+            margin-bottom: 5px; 
+        }
+        .user-details { 
+            font-size: 0.8em; 
+            color: #cccccc; 
+        }
+        .active-indicator {
+            position: absolute; 
+            bottom: 10px; 
+            right: 10px; 
+            width: 9px; 
+            height: 9px; 
+            background: rgba(20, 141, 74, 0.624);
+            border-radius: 50%; 
+            border: 2px solid #3a3a3a; 
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+        }
+        .user-highlight {
+            border: 2px solid rgba(93, 87, 117, 0.734); 
+            box-shadow: 0 0 5px rgba(26, 19, 26, 0.5); 
+        }
+
+        .mini_MarbleButton {
+            background: #553b89; 
+            color: white; 
+            position: relative; top: -6px;
+            text-decoration: none; 
+            padding: 6px 15px; 
+            border-radius: 30px;
+            transition: background 0.3s, box-shadow 0.3s; 
+            border: none;
+        }
+        .mini_MarbleButton:hover { 
+            background: #2e1b5b; 
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); 
+        }
+        .mini_MarbleButton:focus { 
+            outline: 0.5px solid rgba(0, 0, 0, 0.5); 
+        }
+
+        .marble_Button {
+            background: #6e6188; 
+            color: white; 
+            text-decoration: none; 
+            padding: 7px 15px; 
+            border-radius: 17px;
+            transition: background 0.3s, box-shadow 0.3s; 
+            border: none;
+        }
+        .marble_Button:hover { 
+            background: #3a3545; 
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); 
+        }
+        .marble_Button:focus { 
+            outline: 0.5px solid rgba(0, 0, 0, 0.5); 
+        }
+
+        h2 {
+    color: white;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    color: white;
+}
+
+li {
+    background: rgba(255, 255, 255, 0.1);
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.recent-posts ul {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5px;
+    list-style: none;
+}
+
+.post-author {
+    color: #ffffff;
+    margin-bottom: 4px;
+}
+
+
+.recent-posts .post {
+    padding: 15px;
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    background: linear-gradient(#7f75896c, #54495c76);
+    position: relative;
+    transition: transform 0.3s ease;
+    opacity: 0;
+    animation: fadeIn 2s forwards;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.recent-posts .post:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.recent-posts .post img,
+.recent-posts .post video {
+    border-radius: 15px;
+    margin-top: 5px;
+}
+
+.author-profile-picture {
+    width: 20px;
+    height: 20px; 
+    border-radius: 50%; 
+    object-fit: cover;
+    margin-right: 5px; 
+    margin-bottom: 5px;
+    outline: 1px solid rgba(0, 0, 0, 0.254);
+}
+
+.contentpoop {
+    width: 200px;
+    height: 200px;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+    </style>
+</head>
+<body>
+    <div class="banner">
+        <img src="https://i.ibb.co/pd6zKw2/MARBLELOGO.png" alt="Marble Logo" onclick="window.location.href='/'">
+        <div style="margin: 0; display: inline-block; vertical-align: middle;">
+            <form id="search" action="{% url 'search' %}" method="GET" style="display: inline;">
+                <input type="text" placeholder="Search..." name="query" style="padding: 10px; width: 200px; border-radius: 15px; border: 1px solid #ffffff;">
+                <button type="submit" class="marble_Button">Search</button>
+            </form>
+        </div>
+        
+        <div>
+            {% if user.is_authenticated %}
+                <a href="{% url 'create_post' %}" class="mini_MarbleButton" style="margin-right: 10px;">Post</a>
+                <div class="profile-picture-container">
+                    <a href="{% url 'profile' user_id=user.id %}">
+                        <img src="{{ user.userprofile.profile_picture.url }}" alt="{{ user.username }}'s Profile Picture" class="profile-picture" onerror="this.src='{{ DEFAULT_PROFILE_PICTURE_URL }}';" />
+                    </a>
+                </div>
+            {% else %}
+                <a href="{% url 'create_account' %}" class="marble_Button">Create Account</a>
+                <a href="{% url 'custom_login' %}" class="marble_Button">Sign In</a>
+            {% endif %}
+        </div>        
+    </div>  
+    
+    <div class="recent-users">
+        <h3>Recent Users</h3>
+        <ul>
+            {% for profile in recent_users %}
+                <li class="{% if profile.user == request.user %}user-highlight{% endif %}">
+                    <a href="{% if profile.user == request.user %}{% url 'profile' user_id=profile.user.id %}{% else %}{% url 'user_profile' user_id=profile.user.id %}{% endif %}" style="display: flex; align-items: center; text-decoration: none; color: inherit;">
+                        <img id="profile-picture" src="{{ profile.profile_picture.url }}" alt="{{ profile.user.username }}'s profile picture" class="profile-picture" onerror="this.src='{{ DEFAULT_PROFILE_PICTURE_URL }}';">
+                        <div class="user-info">
+                            <span style="font-weight: bold;">{{ profile.user.username }}</span>
+                            <div class="user-details">  
+                                <div class="description">
+                                    <span>
+                                        {% if profile.description %}
+                                            <em>"{{ profile.description|escape }}"</em>
+                                        {% else %}
+                                            <em>No description provided.</em>
+                                        {% endif %}
+                                    </span>
+                                </div>
+                                <span>Followers: {{ profile.user.followers.count }}</span>
+                                <span>Joined: {{ profile.user.date_joined|date:"Y-m-d" }}</span>
+                            </div>
+                        </div>
+                        {% if profile.is_active %}
+                            <div class="active-indicator"></div>
+                        {% endif %}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    
+    <div class="recent-posts">
+        <ul>
+            {% for post in posts %}
+                <li class="post">
+                    <a href="{% url 'view_post' post.id %}" style="text-decoration: none; color: inherit;">
+                        <div class="post-author" style="display: flex; align-items: center; margin-bottom: 10px;">
+                            <img src="{{ post.user.userprofile.profile_picture.url }}" alt="{{ post.user.username }}'s Profile Picture" class="author-profile-picture" onerror="this.src='{{ DEFAULT_PROFILE_PICTURE_URL }}';">
+                            <div style="margin-left: 5px;">
+                                {% if post.user == request.user %}
+                                    <span style="font-weight: bold;">{{ post.user.username }}</span>
+                                {% else %}
+                                    <span style="font-weight: bold;">{{ post.user.username }}</span>
+                                {% endif %}
+                                <div style="font-size: 0.8em; color: #cccccc;">
+                                    Followers: {{ post.user.followers.count }}
+                                    Posted on: {{ post.created_at|date:"Y-m-d H:i" }}
+                                </div>
+                            </div>
+                        </div>
+                        <h3>{{ post.title }}</h3>
+                        <p>
+                            {% if post.content|length > 30 %}
+                                {{ post.content|slice:":30" }}...
+                            {% else %}
+                                {{ post.content }}
+                            {% endif %}
+                        </p>                        
+                        <div class="contentpoop">
+                            {% if post.image %}
+                                <img src="{{ post.image.url }}" alt="Post Image" style="max-width: 100%; height: auto;">
+                            {% endif %}
+                            {% if post.video %}
+                                <video controls style="max-width: 100%; height: auto;">
+                                    <source src="{{ post.video.url }}" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                            {% endif %}
+                        </div>
+                    </a>
+                    <div>
+                        <form action="{% url 'like_post' post.id %}" method="post" style="display:inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="marble_Button">
+                                {% if user in post.likes.all %}
+                                    Unlike
+                                {% else %}
+                                    Like
+                                {% endif %}
+                            </button>
+                        </form>
+                        
+                        <span id="like-count-{{ post.id }}">
+                            {{ post.likes.count }} {{ post.likes.count|pluralize:"like,likes" }}
+                        </span>                        
+                    </div>
+                </li>
+            {% empty %}
+                <p>No posts to display</p>
+            {% endfor %}
+        </ul>
+    </div>    
+    </body>
+    </html>    

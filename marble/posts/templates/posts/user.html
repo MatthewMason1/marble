@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ user_profile.user.username }}'s Profile - Marble</title>
+    <link rel="icon" type="image/png" href="https://i.ibb.co/T8PFcP3/M.png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: "Poppins", sans-serif;
+            background: #010126;
+            margin: 0;
+            padding: 0;
+            color: white;
+        }
+        .banner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 25px; /* Reduced height */
+            background: linear-gradient(#463960, #2c243e);
+            box-shadow: 0 4px 8px rgba(32, 18, 43, 0.2);
+        }
+        .banner img {
+            height: 25px; /* Adjust logo size as needed */
+        }
+        .profile-picture {
+            scale: 1.2;
+            width: 25px; /* Initial size */
+            height: 200px;
+            border-radius: 50%; /* Circular shape */
+            margin-right: 10px;
+            object-fit: cover; 
+            outline: 0.5px solid #00000050;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+    
+    /* Drop shadow for a 3D effect */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15), 
+                0px 2px 4px rgba(0, 0, 0, 0.1);
+
+    /* Subtle zoom on hover */
+    &:hover {
+        transform: scale(1.1);
+        box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2),
+                    0px 3px 6px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Adding a soft rotation effect */
+    &:hover {
+        transform: scale(1.1) rotate(2deg);
+    }
+}
+.followers-list {
+    list-style-type: none; /* Removes bullet points */
+    padding-left: 0; /* Removes default padding */
+}
+
+/* Add this to your CSS file */
+.fade-in {
+  opacity: 0; /* Start invisible */
+  transition: opacity 1s ease-in; /* Transition effect */
+}
+
+.fade-in-active {
+  opacity: 1; /* Fully visible */
+}
+
+
+
+.follower-link {
+    text-decoration: none;
+    color: inherit; /* Inherits color from the parent element */
+    font-weight: bold; /* Optional styling for emphasis */
+
+    /* Add hover effect */
+    transition: color 0.3s ease;
+}
+
+.follower-link:hover {
+    color: #555; /* Choose a hover color that fits the theme */
+}
+
+        .glow {
+            box-shadow: 0 0 15px 5px; /* Adjust glow size and spread */
+        }
+        .marble_Button {
+            background-color: #565063;
+            color: white;
+            border: none; 
+            text-decoration: none;
+            padding: 7px 15px;
+            border-radius: 15px;
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+        .marble_Button:hover {
+            background-color: #3e3843; /* Lighter button color on hover */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Enhanced hover effect */
+        }
+        .marble_Button:focus {
+            outline: 0.5px solid #00000050; /* Add a focus outline */
+        }
+        .profile {
+            text-align: center;
+            margin: 20px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .profile img {
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+    
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15), 
+                0px 2px 4px rgba(0, 0, 0, 0.1);
+
+    &:hover {
+        transform: scale(1.1);
+        box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2),
+                    0px 3px 6px rgba(0, 0, 0, 0.15);
+    }
+
+    &:hover {
+        transform: scale(1.1) rotate(2deg);
+    }
+}
+.alert {
+            color: rgb(223, 100, 153);
+            margin-bottom: 15px;
+        }
+.parent-container {
+    display: flex;
+    text-align: center;
+    text-decoration: none; /* Remove underline */
+    justify-content: center; /* Centers horizontally */
+    align-items: center; /* Centers vertically (if needed) */
+    height: 30vh; /* Optional: Adjust height as needed */
+}
+
+#followers-list {
+    display: none;
+    margin-top: 10px;
+    border: 2.5px solid #9354c644;
+    padding: 20px;
+    width: 300px;
+    text-decoration: none;
+    align-items: center;
+    background: linear-gradient(#463960, #2c243e);
+            box-shadow: 0 4px 8px rgba(32, 18, 43, 0.2);
+    color: rgb(255, 255, 255); /* White text */
+    border-radius: 15px; /* Rounded corners */
+}
+
+        .follow-button {
+            background-color: #7b70b2;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 15px;
+            text-decoration: none;
+            border: none;
+            transition: background-color 0.3s;
+        }
+        .follow-button:hover {
+            background-color: #655a6e;
+            border: none;
+        }
+        .follow-button-container {
+            justify-content: center; /* Center the button container */
+            margin-top: 10px; /* Add margin for spacing */
+        }
+        .recent-users {
+            margin: 20px; 
+            color: white; 
+        }
+        .recent-users h3 {
+            margin-bottom: 10px; 
+        }
+        .recent-users ul {
+            list-style-type: none; /* Remove bullets */
+            padding: 0; 
+        }
+        .recent-users li {
+            margin: 5px 0; /* Space between users */
+            display: flex; /* Align profile picture and username */
+            align-items: center; /* Center items vertically */
+        }
+        .recent-users li img {
+            width: 50px; /* Fixed size for profile pictures */
+            height: 50px; /* Fixed size for profile pictures */
+            border-radius: 50%; /* Circular images */
+            object-fit: cover; /* Ensure the image covers the area */
+            margin-right: 10px; /* Space between image and text */
+        }
+        .accountcard {
+    background: linear-gradient(#463960, #2c243e);
+    box-shadow: 0 4px 8px rgba(32, 18, 43, 0.2);
+    border: 2.5px solid #9354c644;
+    padding: 15px;
+    width: 200px;
+    border-radius: 10px;
+    margin: 10px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+    </style>
+</head>
+<body>
+    <div class="banner">
+        <img src="https://i.ibb.co/pd6zKw2/MARBLELOGO.png" alt="Marble Logo" onclick="window.location.href='/'" style="cursor: pointer;">
+        
+        <div>
+            {% if user.is_authenticated %}
+                <a href="{% url 'profile' user_id=user.id %}">
+                    <img src="{{ user.userprofile.profile_picture.url }}" alt="{{ user.username }}'s Profile Picture" class="profile-picture" onerror="this.src='{{ DEFAULT_PROFILE_PICTURE_URL }}';" />
+                </a>
+            {% else %}
+                <a href="{% url 'create_account' %}" class="marble_Button">Create Account</a>
+                <a href="{% url 'custom_login' %}" class="marble_Button">Sign In</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="profile">
+        <h1>{{ user_profile.user.username }}</h1>
+        <img src="{{ profile_picture_url }}" alt="{{ user_profile.user.username }}'s Profile Picture" 
+             onerror="this.src='https://tr.rbxcdn.com/180DAY-4ab626f2df7ffe788a3b06500d127a99/420/420/Hat/Webp/noFilter';">
+
+             <div class="follow-button-container">
+                {% if request.user.is_authenticated %}
+                    {% if is_following %}
+                        <p>You are following this user.</p>
+                        <form method="POST" action="{% url 'follow_user' user_id=user_profile.user.id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="follow-button" style="background-color: #c28780;">Unfollow</button>
+                        </form>
+                    {% else %}
+                        <form method="POST" action="{% url 'follow_user' user_id=user_profile.user.id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="follow-button">Follow</button>
+                        </form>
+                    {% endif %}
+                {% else %}
+                    <p><a href="{% url 'custom_login' %}" class="follow-button">Log in to Follow</a></p>
+                {% endif %}
+            </div>
+            
+            <div class="parent-container">
+                <div id="followers-list" style="display:none;">
+                    <h3>Followers:</h3>
+                    <ul class="followers-list">
+                        {% for follower in followers %}
+                            <li>
+                                {% if follower.follower == request.user %}
+                                    <a href="{% url 'profile' user_id=request.user.id %}" class="follower-link">{{ follower.follower.username }} (You)</a>
+                                {% else %}
+                                    <a href="{% url 'user_profile' follower.follower.id %}" class="follower-link">{{ follower.follower.username }}</a>
+                                {% endif %}
+                            </li>
+                        {% empty %}
+                            <li>No followers yet.</li>
+                        {% endfor %}
+                    </ul>
+                </div>            
+
+        <div class="accountcard">
+            <p>
+                {% if user_profile.description %}
+                    <em>"{{ user_profile.description }}"</em>
+                {% else %}
+                    <em>No description provided.</em>
+                {% endif %}
+                <br>
+                
+                
+                <span onclick="toggleFollowers()" style="cursor: pointer;">
+                    {{ user_profile.user.followers.count }} 
+                    {% if user_profile.user.followers.count == 1 %}
+                        Follower
+                    {% else %}
+                        Followers
+                    {% endif %}
+                </span>
+                <br>
+        
+                <a>Joined: {{ user_profile.user.date_joined|date:"Y-m-d" }}</a>
+            </p>
+        </div>
+        
