@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ user_profile.user.username }}'s Profile - Marble</title>
+    <link rel="icon" type="image/png" href="https://i.ibb.co/T8PFcP3/M.png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: "Poppins", sans-serif;
+            background: #010126;
+            margin: 0;
+            padding: 0;
+        }
+        .alert {
+            color: rgb(223, 100, 153);
+            margin-bottom: 15px;
+        }
+        .banner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 25px;
+            background: linear-gradient(#463960, #2c243e);
+            box-shadow: 0 4px 8px rgba(32, 18, 43, 0.2);
+        }
+        .banner img {
+            height: 25px;
+            cursor: pointer;
+        }
+        .profile-picture {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15), 
+                        0px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .profile-picture:hover {
+            transform: scale(1.1) rotate(2deg);
+            box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2),
+                        0px 3px 6px rgba(0, 0, 0, 0.15);
+        }
+        .marble_Button {
+            background-color: #565063;
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 15px;
+            transition: background-color 0.3s, box-shadow 0.3s;
+            border: none;
+        }
+        .marble_Button:hover {
+            background-color: #3e3843;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+        .description {
+            margin: 15px auto;
+            color: rgb(255, 255, 255); 
+            text-align: center;
+            position: relative;
+        }
+        .file-input {
+            margin: 10px 0;
+            color: white;
+        }
+        .centered-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0 auto;
+            width: 200px;
+        }
+        .description-input {
+            text-align: center;
+            margin-bottom: 10px;
+            background-color: #3e3843;
+            border-radius: 10px;
+            color: white;
+            padding: 8px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <div class="banner">
+        <img src="https://i.ibb.co/pd6zKw2/MARBLELOGO.png" alt="Marble Logo" onclick="window.location.href='/'">
+    </div>
+
+    <div class="description">
+        <h2>{{ user_profile.user.username }}'s Profile</h2>
+        <img src="{{ user_profile.profile_picture.url }}" alt="Profile Picture" class="profile-picture"
+            onerror="this.src='https://tr.rbxcdn.com/180DAY-4ab626f2df7ffe788a3b06500d127a99/420/420/Hat/Webp/noFilter';">
+            
+
+        <div class="centered-container">
+            {% if user.id == user_profile.user.id %}
+                <form action="{% url 'change_profile_picture' %}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="file" name="profile_picture" class="file-input" style="display: none;" onchange="this.form.submit()">
+                    <button type="button" class="marble_Button" onclick="document.querySelector('.file-input').click();">
+                        Change Profile Picture
+                    </button>
+                </form>
+                <form action="{% url 'update_description' %}" method="POST" style="margin-top: 10px;">
+                    {% csrf_token %}
+                    <textarea name="description" class="description-input" rows="3" placeholder="Write something about yourself...">{{ user_profile.description }}</textarea>
+                    <button type="submit" class="marble_Button">Update Description</button>
+                </form>
+                <form action="{% url 'account_logout' %}" method="POST" style="margin-top: 20px;">
+                    {% csrf_token %}
+                    <button type="submit" class="marble_Button">Log Out</button>
+                </form>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
