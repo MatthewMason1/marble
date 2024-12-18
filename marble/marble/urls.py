@@ -35,10 +35,13 @@ urlpatterns = [
     path('like_post/<int:post_id>/', like_post, name='like_post'),
 ]
 
+<<<<<<< HEAD
 
 def home(request):
     return render(request, 'posts/index.html')  # Updated path
 
+=======
+>>>>>>> 060d5e29b11c392d53fb6bf8e32b2a796dcf7b16
 # Add media file handling during development
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
