@@ -99,15 +99,27 @@ def profile(request, user_id=None):
     # Allow users to update their own profile picture
     if request.method == 'POST' and user == request.user:
         if 'profile_picture' in request.FILES:
-            user_profile.profile_picture = request.FILES['profile_picture']
-            user_profile.save()
-            messages.success(request, 'Profile picture updated successfully.')
+            profile_picture = request.FILES['profile_picture']
+            
+            # Optional: Add validation for the image type or size
+            try:
+                # Validate image (Example: check file size)
+                if profile_picture.size > 5 * 1024 * 1024:  # Limit to 5MB
+                    raise ValidationError("File size exceeds 5MB.")
+                
+                # Save the profile picture to the user's profile
+                user_profile.profile_picture = profile_picture
+                user_profile.save()
+                messages.success(request, 'Profile picture updated successfully.')
+            except ValidationError as e:
+                messages.error(request, str(e))
         else:
             messages.error(request, 'No profile picture uploaded.')
+        
         return redirect('profile', user_id=request.user.id)
 
     # Render profile with the appropriate profile picture URL
-    profile_picture_url = get_profile_picture_url(user_profile)
+    profile_picture_url = user_profile.profile_picture.url if user_profile.profile_picture else None
 
     return render(request, 'posts/profile.html', {
         'user_profile': user_profile,
