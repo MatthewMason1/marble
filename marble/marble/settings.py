@@ -20,7 +20,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'marble.posts',  # This will now reference the correct app path
+    'posts',  # Correct reference to your app
 ]
 
 
