@@ -1,13 +1,8 @@
 import os
 from pathlib import Path
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'matthew777'  # Change this to a secure secret key
-
-# SECURITY WARNING: don't run with debug turned on in production!
+SECRET_KEY = 'matthew777'  #my super secret key
 DEBUG = True
 LOGIN_URL = '/login/'
 ALLOWED_HOSTS = []
@@ -19,10 +14,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # Your apps
     'posts',
 ]
-
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -54,7 +47,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'marble.wsgi.application'
 
-# Database
+# django database
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -62,7 +55,7 @@ DATABASES = {
     }
 }
 
-# Password validation
+# validation
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -78,17 +71,17 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-# Internationalization
+# this is so anything can enjoy marble!!!
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
-# Static files (CSS, JavaScript, Images)
+# static shi
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # Ensure this directory exists
 
-# Default primary key field type
+# default 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
