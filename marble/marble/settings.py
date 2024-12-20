@@ -20,8 +20,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'posts',  # Ensure your app is included here
+    'marble.posts',  # This will now reference the correct app path
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
